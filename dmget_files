@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# HISTORICAL SCENARIO
+arch_dir_1=/archive/oar.gfdl.cmip6/ESM4/DECK/ESM4_historical_D1/gfdl.ncrc4-intel16-prod-openmp/pp/ocean_cobalt_omip_2d/av/annual_5yr
+arch_dir_2=/archive/oar.gfdl.cmip6/ESM4/DECK/ESM4_historical_D1/gfdl.ncrc4-intel16-prod-openmp/pp/ocean_cobalt_omip_2d/av/monthly_5yr
+tim=1995
+tim_fin=2015
+yr_inc=5
+
+# FUTURE SCENARIO
+arch_dir_1=/archive/oar.gfdl.bgrp-account/CMIP6/ESM4/ScenarioMIP/ESM4_ssp585_D1/gfdl.ncrc4-intel16-prod-openmp/pp/ocean_cobalt_omip_2d/av/annual_2yr
+arch_dir_2=/archive/oar.gfdl.bgrp-account/CMIP6/ESM4/ScenarioMIP/ESM4_ssp585_D1/gfdl.ncrc4-intel16-prod-openmp/pp/ocean_cobalt_omip_2d/av/monthly_2yr
+tim=2081
+tim_fin=2100
+yr_inc=2
+
+
+oce_lab=ocean_cobalt_omip_2d
+
+while (($tim < $tim_fin)); do
+    echo $tim
+    echo $arch_dir_1/${oce_lab}.${tim}-????.ann.nc
+    dmget $arch_dir_1/${oce_lab}.${tim}-????.ann.nc
+
+    echo $arch_dir_2/${oce_lab}.${tim}-????.??.nc
+    dmget $arch_dir_2/${oce_lab}.${tim}-????.??.nc  
+    ((tim+=$yr_inc))
+done
+
+
+
